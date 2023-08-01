@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function Dashboard() {
+export default function SignUp() {
   return (
     <main>
       <div data-theme="light">
