@@ -47,7 +47,7 @@ export default function Create(): JSX.Element {
             </div>
             {/* Invite Emails */}
             <div className="relative flex w-full flex-wrap items-stretch mb-3">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 block" htmlFor="grid-first-name">
                 User to Invite:
               </label>
               <input className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Recipient Email Address..." />
