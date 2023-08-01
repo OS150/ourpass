@@ -1,5 +1,4 @@
 import FeedItem, { FeedItemProps } from './FeedItem';
-import FeedItemProps from './FeedItem';
 
 export default function Feed() {
   const props: Array<FeedItemProps> = [
@@ -8,12 +7,16 @@ export default function Feed() {
       created_by: 'Joey Cheng!!~~!~!!',
       info: 'HI JOEY!',
       description: 'goldman sachs subscription',
+      date_created: new Date().toLocaleDateString(),
+      link: '/',
     },
     {
       avatar: '/github-mark.svg',
       created_by: 'Ian Mac!!~~!~!!',
       info: 'HI Ian!',
       description: 'amazon subscription',
+      date_created: new Date().toLocaleDateString(),
+      link: '/',
     },
 
     {
@@ -21,6 +24,8 @@ export default function Feed() {
       created_by: 'Joey Cheng!!~~!~!!',
       info: 'HI Elinor!',
       description: 'pret subscription',
+      date_created: new Date().toLocaleDateString(),
+      link: '/',
     },
   ];
 
@@ -36,17 +41,12 @@ export default function Feed() {
       </div>
       <div className="overflow-x-auto">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
-              <th>
-                {/* <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label> */}
-              </th>
               <th>Subscription Name</th>
               <th>Information</th>
-              <th></th>
+              <th>Date created</th>
+              <th>Created by</th>
             </tr>
           </thead>
           <tbody>{items}</tbody>
