@@ -4,8 +4,9 @@ export default function Feed() {
       <div data-theme='light'>
         <div className='flex flex-row justify-between margin m-5'>
           <h1 className='font-bold text-4xl p-2'>My Subscriptions</h1>
-          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Add Subscription</button>
+          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Logout</button>
         </div>
+        <button className="btn btn-primary m-5">Add A Subscription</button>
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
