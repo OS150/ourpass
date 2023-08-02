@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { redirect } from 'next/navigation';
 
 export default function Create(): JSX.Element {
-  const [info, setInfo] = useState({});
+  const [info, setInfo] = useState({ creator_id: 1 });
+
   const setName = (e: any) => {
     setInfo({ ...info, name: e.target.value });
   }
@@ -27,7 +28,6 @@ export default function Create(): JSX.Element {
   const setInvite = (e: any) => {
     setInfo({ ...info, invite: e.target.value });
   }
-
 
   const createSubscription = async (e: any) => {
     e.preventDefault();
