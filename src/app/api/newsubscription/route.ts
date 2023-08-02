@@ -3,10 +3,14 @@ import db from '../models/dbmodel'
 
 
 export async function POST(request: NextRequest) {
-    const {creator_id, name, text, upload, add_info, invite} = await request.json();
+    const {email, name, text, upload, add_info, invite} = await request.json();
     try {
+        //query for the id from the email
+        const queryEmail = 'SELECT user_id FROM users WHERE email= $1'
+        const result_email = await db.query(queryEmail, [email]);
+        const creator_id = result_email['rows'][0]['user_id'];
         //query for id from invite
-        const query_invite_id = 'SELECT user_id FROM users where email = $1';
+        const query_invite_id = 'SELECT user_id FROM users WHERE email = $1';
         const result_invite_id = await db.query(query_invite_id, [invite]);
         const invited_id = result_invite_id['rows'][0]['user_id'];
         //add current time
