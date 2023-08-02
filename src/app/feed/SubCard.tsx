@@ -29,7 +29,7 @@ function TextSecret(props: SecretPropsBase): JSX.Element {
       toRender={(secret: string) => {
         return (
           <div>
-            <span>{secret}</span>
+            <span className="text-lg">{secret}</span>
           </div>
         );
       }}
@@ -44,7 +44,11 @@ function MediaSecret(props: SecretPropsBase): JSX.Element {
       toRender={(secret: string) => {
         return (
           <figure className="max-w-lg">
-            <img src="https://defenders.org/sites/default/files/styles/meta_image/public/2019-04/bighorn_sheep_montana_megan_joyce_header_0.jpg?itok=MDHAieMR" alt="Shoes" className="rounded-xl" />
+            <img
+              src="https://defenders.org/sites/default/files/styles/meta_image/public/2019-04/bighorn_sheep_montana_megan_joyce_header_0.jpg?itok=MDHAieMR"
+              alt="Shoes"
+              className="rounded-xl"
+            />
           </figure>
         );
       }}
@@ -52,9 +56,12 @@ function MediaSecret(props: SecretPropsBase): JSX.Element {
   );
 }
 
-export default function SecretsPage(): JSX.Element {
+export interface SubCardProps {
+  description: string;
+}
+
+export default function SubCard({ description }: SubCardProps): JSX.Element {
   // 1.0 query subscription information
-  const [description, setDescription] = useState('');
   const [textSecret, setTextSecret] = useState<JSX.Element>();
   const [mediaSecret, setMediaSecret] = useState<JSX.Element>();
 
@@ -64,34 +71,39 @@ export default function SecretsPage(): JSX.Element {
   // // console.log(search);
 
   useEffect(() => {
-    setDescription('My subscription');
     setTextSecret(<TextSecret secretAddr="/api/whatever/whatever" />);
     setMediaSecret(<MediaSecret secretAddr="/api/whatever/whatever" />);
   }, []);
 
   return (
-    <div data-theme='light' className='flex flex-col items-center'>
+    <div data-theme="light" className="flex flex-col items-center">
       <div className="card bg-base-100 shadow-xl">
         <div className="flex flex-col items-left m-5">
-          <h1 className='font-bold text-4xl'>{description || 'Description'}</h1>
-          <div className='flex flex-wrap'>
-            <span className="font-bold mr-4">Text: </span>
+          <h1 className="font-bold text-4xl">{description || 'Description'}</h1>
+          <div className="flex flex-wrap">
+            <span className="font-bold mr-4 text-lg">Text: </span>
             {textSecret}
           </div>
-          <div className='flex flex-col'>
-            <div className="font-bold">Media: </div>
+          <div className="flex flex-col">
+            <div className="font-bold text-lg">Media: </div>
             {mediaSecret}
           </div>
           <div className="flex flex-col">
             <div className="form-control w-23">
               <label className="cursor-pointer label">
                 <span className="label-text">Mark In Use</span>
-                <input type="checkbox" className="toggle toggle-lg toggle-success" onClick={() => { console.log("Ian is the best. Wowwee! So amazing!") }} />
+                <input
+                  type="checkbox"
+                  className="toggle toggle-lg toggle-success"
+                  onClick={() => {
+                    console.log('Ian is the best. Wowwee! So amazing!');
+                  }}
+                />
               </label>
             </div>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
