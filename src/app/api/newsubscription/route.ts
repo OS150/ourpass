@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
         const result_rules = await db.query(query_rules, [time, capacity]);
         const rules_id = result_rules['rows'][0]['rules_id'];
 
-
         //add current time
         const date = new Date();
         //add to subscriptions
