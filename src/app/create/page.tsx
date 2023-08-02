@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 export default function Create(): JSX.Element {
   const [info, setInfo] = useState({});
   const setName = (e: any) => {
-    setInfo({ ...info, sub_name: e.target.value });
+    setInfo({ ...info, name: e.target.value });
   }
 
   const setText = (e: any) => {
@@ -16,7 +16,8 @@ export default function Create(): JSX.Element {
   }
 
   const setMedia = (e: any) => {
-    console.log(e);
+    setInfo({ ...info, upload: '' })
+    console.log(e); //call this upload
   }
 
   const setAddInfo = (e: any) => {
@@ -27,21 +28,21 @@ export default function Create(): JSX.Element {
     setInfo({ ...info, invite: e.target.value });
   }
 
-  // const onClick = async (e: any) => {
-  //   const response = await fetch('/api/newsubscription', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({})
-  //   });
 
-  //   if (response.status != 200)
-  //     throw Error("Failed to post new subscription");
-  // }
-
-  const createSubscription = (e: any) => {
+  const createSubscription = async (e: any) => {
     e.preventDefault();
+    // const onClick = async (e: any) => {
+    const response = await fetch('/api/newsubscription', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    });
+    console.log(response, 'this is the response')
+    if (response.status != 200)
+      throw Error("Failed to post new subscription");
+    // }
     console.log(info);
     setTimeout(() => {
       redirect('/feed');
