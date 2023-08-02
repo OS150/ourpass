@@ -9,7 +9,7 @@ export default function Feed() {
       info: 'HI JOEY!',
       description: 'goldman sachs subscription',
       date_created: new Date().toLocaleDateString(),
-      link: '/',
+      modal_id: 'joey-modal',
     },
     {
       avatar: '/github-mark.svg',
@@ -17,7 +17,7 @@ export default function Feed() {
       info: 'HI Ian!',
       description: 'amazon subscription',
       date_created: new Date().toLocaleDateString(),
-      link: '/',
+      modal_id: 'joey-modal2',
     },
 
     {
@@ -26,7 +26,7 @@ export default function Feed() {
       info: 'HI Elinor!',
       description: 'pret subscription',
       date_created: new Date().toLocaleDateString(),
-      link: '/',
+      modal_id: 'joey-modal3',
     },
   ];
 
