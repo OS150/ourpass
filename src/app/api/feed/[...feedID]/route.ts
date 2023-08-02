@@ -9,8 +9,8 @@ export async function GET(request: NextRequest, { params }: { params: { feedID: 
       const invite = `SELECT i.user_id, s.creator_id, s.invite_id, s.text, s.upload, s.status FROM invite i INNER JOIN subs s ON i.invite_id = s.invite_id WHERE i.user_id = $1`
       const resultInvite = await db.query(invite, [feedID])
       
-      console.log('resultQUERYRYRY', resultQuery['rows']);
-      console.log('resultINVITETETETE', resultInvite['rows']);
+      // console.log('resultsQuery', resultQuery['rows']);
+      // console.log('resultInvite', resultInvite['rows']);
       const feed = [resultQuery['rows'][0], resultInvite['rows'][0]];
       return new Response(JSON.stringify(feed), { status: 201 });
   } catch(err) {
