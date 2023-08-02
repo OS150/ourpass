@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 
 export interface SecretPropsBase {
   secretAddr: string;
@@ -42,9 +43,9 @@ function MediaSecret(props: SecretPropsBase): JSX.Element {
       {...props}
       toRender={(secret: string) => {
         return (
-          <div>
-            <div>{secret}</div>
-          </div>
+          <figure className="max-w-lg">
+            <img src="https://defenders.org/sites/default/files/styles/meta_image/public/2019-04/bighorn_sheep_montana_megan_joyce_header_0.jpg?itok=MDHAieMR" alt="Shoes" className="rounded-xl" />
+          </figure>
         );
       }}
     />
@@ -69,16 +70,28 @@ export default function SecretsPage(): JSX.Element {
   }, []);
 
   return (
-    <div className="to-blue-600">
-      <h1>{description || 'Description'}</h1>
-      <div>
-        <span className="font-bold">Text: </span>
-        {textSecret}
+    <div data-theme='light' className='flex flex-col items-center'>
+      <div className="card bg-base-100 shadow-xl">
+        <div className="flex flex-col items-left m-5">
+          <h1 className='font-bold text-4xl'>{description || 'Description'}</h1>
+          <div className='flex flex-wrap'>
+            <span className="font-bold mr-4">Text: </span>
+            {textSecret}
+          </div>
+          <div className='flex flex-col'>
+            <div className="font-bold">Media: </div>
+            {mediaSecret}
+          </div>
+          <div className="flex flex-col">
+            <div className="form-control w-23">
+              <label className="cursor-pointer label">
+                <span className="label-text">Mark In Use</span>
+                <input type="checkbox" className="toggle toggle-lg toggle-success" onClick={() => { console.log("Ian is the best. Wowwee! So amazing!") }} />
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <div className="font-bold">Media: </div>
-        {mediaSecret}
-      </div>
-    </div>
+    </div >
   );
 }
