@@ -1,5 +1,7 @@
+import { useSession } from 'next-auth/react';
 import FeedItem, { FeedItemProps } from './FeedItem';
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Feed() {
   const props: Array<FeedItemProps> = [
@@ -30,7 +32,10 @@ export default function Feed() {
     },
   ];
 
-  const items: Array<JSX.Element> = props.map((prop) => <FeedItem {...prop} />);
+  const items: Array<JSX.Element> = props.map((prop) => <FeedItem {...prop} key={uuidv4()}/>);
+
+  const session = useSession();
+  const userEmail = session.data?.user?.email;
 
   return (
     <div data-theme="light">
@@ -57,6 +62,7 @@ export default function Feed() {
           </thead>
           <tbody>{items}</tbody>
         </table>
+          <footer>Signed in with the email: {userEmail}</footer>
       </div>
     </div>
   );

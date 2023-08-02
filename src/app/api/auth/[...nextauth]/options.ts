@@ -24,14 +24,14 @@ export const options: NextAuthOptions = {
       async authorize(credentials) {
         try {
           //query database for user 
-          const query = "SELECT password FROM users WHERE (email = $1)"
+          const query = "SELECT * FROM users WHERE (email = $1)"
           const result = await db.query(query, [credentials?.email])
           if (result.rowCount === 1 && credentials?.password) {
             const user = result.rows[0];
             const passwordsMatch = await compare(credentials.password, user.password);
 
             if (passwordsMatch) {
-              return Promise.resolve(user);
+              return user;
             }
             else {
               throw new Error("INVALID PASSWORD");
