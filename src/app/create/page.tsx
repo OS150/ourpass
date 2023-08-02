@@ -31,13 +31,13 @@ export default function Create(): JSX.Element {
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-first-name"
               >
-                Subscription Information:
+                Subscription Details:
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
-                placeholder="Username/Email/Password Info"
+                placeholder="Any passwords, usernames, or other secret text to share..."
               />
             </div>
 
@@ -53,28 +53,13 @@ export default function Create(): JSX.Element {
                 </span>
               </label>
             </div>
-            {/* Number of Users */}
+            {/* Add additional info */}
             <div className="relative flex w-full flex-wrap items-stretch mb-3">
               <label
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 htmlFor="grid-first-name"
               >
-                Maximum Number of Users:
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="# of Max Users"
-              />
-            </div>
-            {/* Create Rules */}
-            <div className="relative flex w-full flex-wrap items-stretch mb-3">
-              <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                htmlFor="grid-first-name"
-              >
-                Rules of Usage:
+                Additional Information:
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -95,7 +80,7 @@ export default function Create(): JSX.Element {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-first-name"
                 type="text"
-                placeholder="Enter Recipient Email Address..."
+                placeholder="Enter recipient email address..."
               />
             </div>
             {/* Create Button */}
