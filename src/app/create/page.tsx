@@ -4,9 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function Create(): JSX.Element {
-  const [info, setInfo] = useState({ creator_id: 1 });
+  const session = useSession();
+  const [email, setEmail] = useState(session.data?.user?.email);
+  const [info, setInfo] = useState<any>({ email });
 
   const setName = (e: any) => {
     setInfo({ ...info, name: e.target.value });
@@ -42,11 +45,6 @@ export default function Create(): JSX.Element {
     console.log(response, 'this is the response')
     if (response.status != 200)
       throw Error("Failed to post new subscription");
-    // }
-    console.log(info);
-    setTimeout(() => {
-      redirect('/feed');
-    }, 1000)
   }
 
   return (
@@ -136,10 +134,11 @@ export default function Create(): JSX.Element {
               />
             </div>
             {/* Create Button */}
-            {/* <Link href="/feed"> */}
-            <button onClick={createSubscription} className="btn btn-active btn-primary">
-              Create Subscription
-            </button>
+            <Link href="/feed">
+              <button onClick={createSubscription} className="btn btn-active btn-primary">
+                Create Subscription
+              </button>
+            </Link>
           </div>
         </form>
       </div>
