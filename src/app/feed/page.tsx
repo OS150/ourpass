@@ -1,35 +1,37 @@
+'use client'
+
 import { useSession } from 'next-auth/react';
 import FeedItem, { FeedItemProps } from './FeedItem';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
-import useSWR from 'swr';
 
 export default function Feed() {
-  const items = useSWR('/api/user', async (url) => {
-    const session = useSession();
-    const email = session.data?.user?.email;
-    // fetch the data from the backend
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    // collect the array (sent as result)
-    const { result } = await response.json();
-    // map the data into the FeedItemProps format
-    return result.map((prop: FeedItemProps, index: number) => {
-      // add a modal_id
-      prop['modal_id'] = 'sub_' + index;
-      // return the JSX component
-      return <FeedItem {...prop} key={index} />;
-    });
-  });
-
-  // const items: Array<JSX.Element> = props.map((prop) => (
-  //   <FeedItem {...prop} key={uuidv4()} />
-  // ));
+  const session = useSession();
+  const [email, setEmail] = useState(session.data?.user?.email);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    // inner func
+    (async () => {
+      // fetch the data from the backend
+      const response = await fetch('/api/feed/', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // collect the array (sent as result)
+      const { result } = await response.json();
+      // map the data into the FeedItemProps format
+      setItems(result.map((prop: FeedItemProps, index: number) => {
+        // add a modal_id
+        prop['modal_id'] = 'sub_' + index;
+        // return the JSX component
+        return <FeedItem {...prop} key={index} />;
+      }));
+    })();
+  }, []);
 
   return (
     <div data-theme="light">
@@ -56,7 +58,7 @@ export default function Feed() {
           </thead>
           <tbody>{items}</tbody>
         </table>
-        {/* <footer>Signed in with the email: {userEmail}</footer> */}
+        <footer>Signed in with the email: {email}</footer>
       </div>
     </div>
   );
