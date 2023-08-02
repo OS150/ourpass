@@ -10,6 +10,7 @@ CREATE TABLE subs (
     text VARCHAR(255) NOT NULL ,
     upload VARCHAR(3000) NOT NULL,
     rules_id INTEGER,
+    date VARCHAR(100),
     status VARCHAR(255) NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES users (user_id),
     FOREIGN KEY (rules_id) REFERENCES rules (rules_id)
