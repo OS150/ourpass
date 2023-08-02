@@ -1,7 +1,53 @@
+'use client'
+
 import React from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
+import { redirect } from 'next/navigation';
 
 export default function Create(): JSX.Element {
+  const [info, setInfo] = useState({});
+  const setName = (e: any) => {
+    setInfo({ ...info, sub_name: e.target.value });
+  }
+
+  const setText = (e: any) => {
+    setInfo({ ...info, text: e.target.value });
+  }
+
+  const setMedia = (e: any) => {
+    console.log(e);
+  }
+
+  const setAddInfo = (e: any) => {
+    setInfo({ ...info, add_info: e.target.value });
+  }
+
+  const setInvite = (e: any) => {
+    setInfo({ ...info, invite: e.target.value });
+  }
+
+  // const onClick = async (e: any) => {
+  //   const response = await fetch('/api/newsubscription', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({})
+  //   });
+
+  //   if (response.status != 200)
+  //     throw Error("Failed to post new subscription");
+  // }
+
+  const createSubscription = (e: any) => {
+    e.preventDefault();
+    console.log(info);
+    setTimeout(() => {
+      redirect('/feed');
+    }, 1000)
+  }
+
   return (
     <div data-theme="light">
       <div className="m-5 flex flex-col items-center">
@@ -23,6 +69,7 @@ export default function Create(): JSX.Element {
                 id="grid-first-name"
                 type="text"
                 placeholder="Name of Subscription"
+                onChange={setName}
               />
             </div>
             {/* Start of Textbox with user's login information */}
@@ -38,6 +85,7 @@ export default function Create(): JSX.Element {
                 id="grid-first-name"
                 type="text"
                 placeholder="Any passwords, usernames, or other secret text to share..."
+                onChange={setText}
               />
             </div>
 
@@ -46,6 +94,7 @@ export default function Create(): JSX.Element {
               <input
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs"
+                onChange={setMedia}
               />
               <label className="label">
                 <span className="label-text-alt italic">
@@ -66,6 +115,7 @@ export default function Create(): JSX.Element {
                 id="grid-first-name"
                 type="text"
                 placeholder="Describe any rules here..."
+                onChange={setAddInfo}
               />
             </div>
             {/* Invite Emails */}
@@ -81,14 +131,14 @@ export default function Create(): JSX.Element {
                 id="grid-first-name"
                 type="text"
                 placeholder="Enter recipient email address..."
+                onChange={setInvite}
               />
             </div>
             {/* Create Button */}
-            <Link href="/feed">
-              <button className="btn btn-active btn-primary">
-                Create Subscription
-              </button>
-            </Link>
+            {/* <Link href="/feed"> */}
+            <button onClick={createSubscription} className="btn btn-active btn-primary">
+              Create Subscription
+            </button>
           </div>
         </form>
       </div>
