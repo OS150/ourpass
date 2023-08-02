@@ -7,5 +7,5 @@ export { default } from "next-auth/middleware"
 //Ref: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 
 //these will be different endpoints
-export const config = { matcher: ["/extra", "/dashboard"]}
+export const config = { matcher: ["/create", "/feed", "/item"]}
 

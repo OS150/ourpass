@@ -1,4 +1,5 @@
 import FeedItem, { FeedItemProps } from './FeedItem';
+import Link from 'next/link';
 
 export default function Feed() {
   const props: Array<FeedItemProps> = [
@@ -8,7 +9,7 @@ export default function Feed() {
       info: 'HI JOEY!',
       description: 'goldman sachs subscription',
       date_created: new Date().toLocaleDateString(),
-      link: '/',
+      modal_id: 'joey-modal',
     },
     {
       avatar: '/github-mark.svg',
@@ -16,7 +17,7 @@ export default function Feed() {
       info: 'HI Ian!',
       description: 'amazon subscription',
       date_created: new Date().toLocaleDateString(),
-      link: '/',
+      modal_id: 'joey-modal2',
     },
 
     {
@@ -25,7 +26,7 @@ export default function Feed() {
       info: 'HI Elinor!',
       description: 'pret subscription',
       date_created: new Date().toLocaleDateString(),
-      link: '/',
+      modal_id: 'joey-modal3',
     },
   ];
 
@@ -35,9 +36,15 @@ export default function Feed() {
     <div data-theme="light">
       <div className="flex flex-row justify-between margin m-5">
         <h1 className="font-bold text-4xl p-2">My Subscriptions</h1>
-        <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Logout</button>
+        <Link href="/api/auth/signout">
+          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">
+            Sign out
+          </button>
+        </Link>
       </div>
-      <button className="btn btn-primary m-5">Add A Subscription</button>
+      <Link href="/create">
+        <button className="btn btn-primary m-5">Add A Subscription</button>
+      </Link>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -50,7 +57,7 @@ export default function Feed() {
           </thead>
           <tbody>{items}</tbody>
         </table>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
