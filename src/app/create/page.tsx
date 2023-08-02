@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
+
+
+
 export default function Create(): JSX.Element {
   const session = useSession();
   const [email, setEmail] = useState(session.data?.user?.email);
@@ -42,14 +45,19 @@ export default function Create(): JSX.Element {
       },
       body: JSON.stringify(info)
     });
-    console.log(response, 'this is the response')
-    if (response.status != 200)
+    // console.log(response, 'this is the response')
+    if (response.status != 200) {
       throw Error("Failed to post new subscription");
+    }
+ 
   }
 
   return (
     <div data-theme="light">
       <div className="m-5 flex flex-col items-center">
+        <Link href='/feed'><button>
+          <h2>Back to Feed</h2>
+        </button></Link>
         <h1 className="flex flex-col items-center text-4xl my-10">
           Add A New Subscription
         </h1>
@@ -134,11 +142,12 @@ export default function Create(): JSX.Element {
               />
             </div>
             {/* Create Button */}
-            <Link href="/feed">
-              <button onClick={createSubscription} className="btn btn-active btn-primary">
+           
+            <button onClick={createSubscription} className="btn btn-active btn-primary">
                 Create Subscription
+            
               </button>
-            </Link>
+           
           </div>
         </form>
       </div>

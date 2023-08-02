@@ -6,13 +6,13 @@ export async function POST(request: NextRequest) {
   const {email} = await request.json();
 
   try {
-    const user_id = 'SELECT user_id FROM users WHERE email = $1'
+    const user_id = 'SELECT user_id FROM users WHERE email = $1';
     const IdQuery = await db.query(user_id, [email]);
-    const feedID = IdQuery['rows'][0]['user_id']
+    const feedID = IdQuery['rows'][0]['user_id'];
       const query = `SELECT * FROM subs WHERE creator_id = $1`
       const resultQuery = await db.query(query, [feedID]);
       const invite = `SELECT i.user_id, s.creator_id, s.invite_id, s.text, s.upload, s.status FROM invite i INNER JOIN subs s ON i.invite_id = s.invite_id WHERE i.user_id = $1`
-      const resultInvite = await db.query(invite, [feedID])
+    const resultInvite = await db.query(invite, [feedID]);
       
       // console.log('resultsQuery', resultQuery['rows']);
       // console.log('resultInvite', resultInvite['rows']);

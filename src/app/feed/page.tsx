@@ -16,13 +16,13 @@ export default function Feed() {
       // fetch the data from the backend
       const response = await fetch('/api/feed/', {
         method: 'POST',
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email}),
         headers: {
           'Content-Type': 'application/json',
         },
       });
       // collect the array (sent as result)
-      const { result } = await response.json();
+      const result  = await response.json();
       // map the data into the FeedItemProps format
       setItems(result.map((prop: FeedItemProps, index: number) => {
         // add a modal_id
