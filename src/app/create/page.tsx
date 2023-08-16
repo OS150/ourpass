@@ -4,11 +4,18 @@ import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+//router.push says nexpert
+
+
 
 export default function Create(): JSX.Element {
-  const [info, setInfo] = useState({});
+  const session = useSession();
+  const [email, setEmail] = useState(session.data?.user?.email);
+  const [info, setInfo] = useState<any>({ email });
+
   const setName = (e: any) => {
-    setInfo({ ...info, sub_name: e.target.value });
+    setInfo({ ...info, name: e.target.value });
   }
 
   const setText = (e: any) => {
@@ -16,7 +23,8 @@ export default function Create(): JSX.Element {
   }
 
   const setMedia = (e: any) => {
-    console.log(e);
+    setInfo({ ...info, upload: '' })
+    console.log(e); //call this upload
   }
 
   const setAddInfo = (e: any) => {
@@ -27,30 +35,29 @@ export default function Create(): JSX.Element {
     setInfo({ ...info, invite: e.target.value });
   }
 
-  // const onClick = async (e: any) => {
-  //   const response = await fetch('/api/newsubscription', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({})
-  //   });
-
-  //   if (response.status != 200)
-  //     throw Error("Failed to post new subscription");
-  // }
-
-  const createSubscription = (e: any) => {
+  const createSubscription = async (e: any) => {
     e.preventDefault();
-    console.log(info);
-    setTimeout(() => {
-      redirect('/feed');
-    }, 1000)
+    // const onClick = async (e: any) => {
+    const response = await fetch('/api/newsubscription', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    });
+    // console.log(response, 'this is the response')
+    if (response.status != 200) {
+      throw Error("Failed to post new subscription");
+    }
+ 
   }
 
   return (
     <div data-theme="light">
       <div className="m-5 flex flex-col items-center">
+        <Link href='/feed'><button>
+          <h2>Back to Feed</h2>
+        </button></Link>
         <h1 className="flex flex-col items-center text-4xl my-10">
           Add A New Subscription
         </h1>
@@ -135,10 +142,12 @@ export default function Create(): JSX.Element {
               />
             </div>
             {/* Create Button */}
-            {/* <Link href="/feed"> */}
+           
             <button onClick={createSubscription} className="btn btn-active btn-primary">
-              Create Subscription
-            </button>
+                Create Subscription
+            
+              </button>
+           
           </div>
         </form>
       </div>

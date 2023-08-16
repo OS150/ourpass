@@ -1,41 +1,37 @@
+'use client'
+
 import { useSession } from 'next-auth/react';
 import FeedItem, { FeedItemProps } from './FeedItem';
 import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react';
+// import { v4 as uuidv4 } from 'uuid';
 
 export default function Feed() {
-  const props: Array<FeedItemProps> = [
-    {
-      avatar: '/flogo.svg',
-      created_by: 'Joey Cheng!!~~!~!!',
-      info: 'HI JOEY!',
-      description: 'goldman sachs subscription',
-      date_created: new Date().toLocaleDateString(),
-      modal_id: 'joey-modal',
-    },
-    {
-      avatar: '/github-mark.svg',
-      created_by: 'Ian Mac!!~~!~!!',
-      info: 'HI Ian!',
-      description: 'amazon subscription',
-      date_created: new Date().toLocaleDateString(),
-      modal_id: 'joey-modal2',
-    },
-
-    {
-      avatar: '/glogo.svg',
-      created_by: 'Joey Cheng!!~~!~!!',
-      info: 'HI Elinor!',
-      description: 'pret subscription',
-      date_created: new Date().toLocaleDateString(),
-      modal_id: 'joey-modal3',
-    },
-  ];
-
-  const items: Array<JSX.Element> = props.map((prop) => <FeedItem {...prop} key={uuidv4()}/>);
-
   const session = useSession();
-  const userEmail = session.data?.user?.email;
+  const [email, setEmail] = useState(session.data?.user?.email);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    // inner func
+    (async () => {
+      // fetch the data from the backend
+      const response = await fetch('/api/feed/', {
+        method: 'POST',
+        body: JSON.stringify({ email}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // collect the array (sent as result)
+      const result  = await response.json();
+      // map the data into the FeedItemProps format
+      setItems(result.map((prop: FeedItemProps, index: number) => {
+        // add a modal_id
+        prop['modal_id'] = 'sub_' + index;
+        // return the JSX component
+        return <FeedItem {...prop} key={index} />;
+      }));
+    })();
+  }, []);
 
   return (
     <div data-theme="light">
@@ -62,7 +58,7 @@ export default function Feed() {
           </thead>
           <tbody>{items}</tbody>
         </table>
-          <footer>Signed in with the email: {userEmail}</footer>
+        <footer>Signed in with the email: {email}</footer>
       </div>
     </div>
   );
