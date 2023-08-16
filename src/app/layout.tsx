@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'OurPass',
   description: 'An App to Pass the Sub',
+  keywords: 'Subscription, password, sharing'
 }
 
 export default function RootLayout({

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-
+//router.push says nexpert
 
 
 
